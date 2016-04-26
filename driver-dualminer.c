@@ -647,7 +647,7 @@ static int dualminer_write(struct cgpu_info *dualminer, char *buf, int size, boo
 	}
 	if (opt_debug) 
 	{
-		applog(LOG_ERR, "\033[1;32m %s%i: Write to USB %s \033[0m", dualminer->drv->name, dualminer->device_id, bin2hex(buf, amount));
+		applog(LOG_ERR, " %s%i: Write to USB %s ", dualminer->drv->name, dualminer->device_id, bin2hex(buf, amount));
 	}
 	dualminer->cgpu_err_accumulation=0;
 	return amount;
@@ -711,7 +711,7 @@ static int dualminer_set_noce_range(struct cgpu_info *dualminer, bool is_ltc, in
 			p[2] = i;
 			nonce = htole32(step * i);
 			memcpy(p + 4, &nonce, sizeof(nonce));
-			applog(LOG_ERR, "\033[1;34m %s\033[0m", bin2hex(p, 8));
+			applog(LOG_ERR, " %s", bin2hex(p, 8));
 			dualminer_write(dualminer, p, 8, false);
 			usleep(10*1000);
 		}
@@ -768,11 +768,11 @@ static int dualminer_detect_asics(struct cgpu_info *dualminer, bool is_ltc)
 		if (strncmp(nonce_hex, (is_ltc ? ltc_golden_nonce : btc_golden_nonce), 8) == 0)
 		{
 			ok_count++;
-			applog(LOG_ERR, "\033[1;32mdualminer Detect %s: Test Success at %s: get %s, should: %s\033[0m", (is_ltc ? "LTC" : "BTC"), dualminer->device_path, nonce_hex, (is_ltc ? ltc_golden_nonce : btc_golden_nonce));
+			applog(LOG_ERR, "Dualminer Detect %s: Test Success at %s: get %s, should: %s", (is_ltc ? "LTC" : "BTC"), dualminer->device_path, nonce_hex, (is_ltc ? ltc_golden_nonce : btc_golden_nonce));
 		}
 		else
 		{
-			applog(LOG_ERR, "\033[1;31mDualMiner Detect %s: Test failed at %s: get %s, should: %s\033[0m", (is_ltc ? "LTC" : "BTC"), dualminer->device_path, nonce_hex,  (is_ltc ? ltc_golden_nonce : btc_golden_nonce));
+			applog(LOG_ERR, "DualMiner Detect %s: Test failed at %s: get %s, should: %s", (is_ltc ? "LTC" : "BTC"), dualminer->device_path, nonce_hex,  (is_ltc ? ltc_golden_nonce : btc_golden_nonce));
 		}
 		free(nonce_hex);
 		usleep(1000);
@@ -1009,7 +1009,7 @@ static int64_t dualminer_scanhash(struct thr_info *thr, struct work *work,
 	/* dualminer will return 4 bytes (DUALMINER_READ_SIZE) nonces or nothing */
 	if (opt_debug)
 	{
-		applog(LOG_ERR, "\033[1;36m ==> %s%d: loop_elapsed.tv_sec = %d, thr = %x, !thr->work_restart = %x, info->keepwork = %x  <==\033[0m",
+		applog(LOG_ERR, " ==> %s%d: loop_elapsed.tv_sec = %d, thr = %x, !thr->work_restart = %x, info->keepwork = %x  <==",
         		dualminer->drv->name, dualminer->device_id, loop_elapsed.tv_sec, thr, !thr->work_restart, info->keepwork);
 	}
 	cgtime(&loop_start);
@@ -1082,7 +1082,7 @@ oversubmit:
 	while((thr && !thr->work_restart) && info->keepwork && loop_elapsed.tv_sec < 60);
 	if (opt_debug)
 	{
-		applog(LOG_ERR, "\033[1;34m ==> %s%d: loop_elapsed.tv_sec = %d, thr = %x, !thr->work_restart = %x, info->keepwork = %x  <==\033[0m",
+		applog(LOG_ERR, " ==> %s%d: loop_elapsed.tv_sec = %d, thr = %x, !thr->work_restart = %x, info->keepwork = %x  <==",
                         dualminer->drv->name, dualminer->device_id, loop_elapsed.tv_sec, thr, !thr->work_restart, info->keepwork);
 	}
 	return 0;
