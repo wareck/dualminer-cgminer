@@ -2665,10 +2665,10 @@ share_result(json_t *val, json_t *res, json_t *err, const struct work *work,
 		applog(LOG_DEBUG, "PROOF OF WORK RESULT: true (yay!!!)");
 		if (!QUIET) {
 			if (total_pools > 1)
-				applog(LOG_NOTICE, "\033[1;32mAccepted %s %s %d pool %d %s%s\033[0m",
+				applog(LOG_NOTICE, "Accepted %s %s %d pool %d %s%s",
 				       hashshow, cgpu->drv->name, cgpu->device_id, work->pool->pool_no, resubmit ? "(resubmit)" : "", worktime);
 			else
-				applog(LOG_NOTICE, "\033[1;32mAccepted %s %s %d %s%s\033[0m",
+				applog(LOG_NOTICE, "Accepted %s %s %d %s%s",
 				       hashshow, cgpu->drv->name, cgpu->device_id, resubmit ? "(resubmit)" : "", worktime);
 		}
 		sharelog("accept", work);
@@ -8039,7 +8039,7 @@ int main(int argc, char *argv[])
 	/* Use the DRIVER_PARSE_COMMANDS macro to detect all devices */
 		DRIVER_PARSE_COMMANDS(DRIVER_DRV_DETECT_ALL)
 	}
-	applog(LOG_ERR, "\033[1;32mDetected %s devices total: %d\033[0m", (opt_scrypt? "Ltc": "Btc"), total_devices);
+	applog(LOG_ERR, "Detected %s devices total: %d", (opt_scrypt? "Ltc": "Btc"), total_devices);
 	if (opt_display_devs) {
 		applog(LOG_ERR, "Devices detected:");
 		for (i = 0; i < total_devices; ++i) {
