@@ -190,7 +190,7 @@ AC_ARG_ENABLE([adl],
 	[adl=$enableval]
 	)
 
-scrypt="no"
+scrypt="yes"
 
 if test "$found_opencl" = 1; then
 	if test "x$adl" != xno; then
@@ -253,7 +253,7 @@ if test "x$bitfury" = xyes; then
 fi
 AM_CONDITIONAL([HAS_BITFURY], [test x$bitfury = xyes])
 
-dualminer="no"
+dualminer="yes"
 
 AC_ARG_ENABLE([dualminer],
 	[AC_HELP_STRING([--enable-dualminer],[Compile support for DualMiner (default disabled)])],
